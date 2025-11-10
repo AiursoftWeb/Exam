@@ -50,8 +50,8 @@ public class ChoiceViewModel : UiStackLayoutViewModel
 
     [Required(ErrorMessage = "Option content is required.")]
     [StringLength(2048, ErrorMessage = "Option content cannot exceed 2048 characters.")]
-    public required string Content { get; init; } = string.Empty;
-    public required bool IsCorrect { get; init; }
+    public required string Content { get; set; } = string.Empty;
+    public required bool IsCorrect { get; set; }
 }
 
 public class EditChoiceViewModel : UiStackLayoutViewModel
@@ -61,11 +61,11 @@ public class EditChoiceViewModel : UiStackLayoutViewModel
         PageTitle = "Edit Choice Question";
     }
 
-    public required Guid Id { get; init; }
+    public required Guid Id { get; set; }
     [Required(ErrorMessage = "Question content is required.")]
     [StringLength(4096, ErrorMessage = "Question content cannot exceed 4096 characters.")]
-    public required string Content { get; init; } = string.Empty;
-    public List<ChoiceViewModel> Choices { get; init; } = [];
+    public required string Content { get; set; } = string.Empty;
+    public List<ChoiceViewModel> Choices { get; set; } = [];
 }
 
 public class EditFillViewModel : UiStackLayoutViewModel
@@ -75,19 +75,19 @@ public class EditFillViewModel : UiStackLayoutViewModel
         PageTitle = "Edit Fill-in-the-Blank Question";
     }
 
-    public required Guid Id { get; init; }
+    public required Guid Id { get; set; }
     [Required(ErrorMessage = "Question text is required.")]
     [StringLength(8192, ErrorMessage = "Question text cannot exceed 8192 characters.")]
-    public required string TextWithBlanks { get; init; } = string.Empty;
+    public required string TextWithBlanks { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "The correct answer is required.")]
     [StringLength(1024, ErrorMessage = "The answer cannot exceed 1024 characters.")]
-    public required string Answer { get; init; } = string.Empty;
+    public required string Answer { get; set; } = string.Empty;
 }
 
 [LimitPerMin]
 [Authorize(Policy = AppPermissionNames.CanAdminQuestionsBank)]
-public class AdminQuestionsController(TemplateDbContext context) : Controller
+public class QuestionsController(TemplateDbContext context) : Controller
 {
     [RenderInNavBar(
         NavGroupName = "Administration",
