@@ -57,7 +57,10 @@ public class AppPermissions
                 localizer["Allows viewing system-level information and settings."]),
             new(AppPermissionNames.CanRebootThisApp,
                 localizer["Reboot This App"],
-                localizer["Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded."])
+                localizer["Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded."]),
+            new(AppPermissionNames.CanAdminQuestionsBank,
+                localizer["Manage the questions bank"],
+                localizer["Grants permission to manage the questions bank, including adding, editing, deleting, and viewing all questions in the database."]),
         ];
         return allPermission;
     }
