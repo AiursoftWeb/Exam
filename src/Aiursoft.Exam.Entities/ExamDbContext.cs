@@ -11,4 +11,19 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
 
     public virtual  Task<bool> CanConnectAsync() =>
         Database.CanConnectAsync();
+
+    public DbSet<ExamPaperSubmission> ExamPaperSubmissions => Set<ExamPaperSubmission>();
+
+    public DbSet<ExamPaper> ExamPapers => Set<ExamPaper>();
+
+    public DbSet<ExamPaperQuestionAnswer> ExamPaperQuestionAnswers => Set<ExamPaperQuestionAnswer>();
+
+    public DbSet<ExamPaperQuestion> ExamPaperQuestions => Set<ExamPaperQuestion>();
+
+    public DbSet<Question> Questions => Set<Question>();
+    public DbSet<FillInBlankQuestion> FillInBlankQuestion => Set<FillInBlankQuestion>();
+    public DbSet<ChoiceQuestion> ChoiceQuestions => Set<ChoiceQuestion>();
+
+    public DbSet<Choice> Choices => Set<Choice>();
+
 }

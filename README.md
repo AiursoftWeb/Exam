@@ -81,6 +81,80 @@ The docker image has the following context:
 | Data path   | /data                           |
 | Config path | /data/appsettings.json          |
 
+## Database structure
+
+```mermaid
+erDiagram
+    User ||--o{ ExamPaperSubmission : "Submits"
+    ExamPaper ||--o{ ExamPaperSubmission : "Has"
+    ExamPaper ||--o{ ExamPaperQuestion : "Contains"
+    Question ||--o{ ExamPaperQuestion : "AppearsIn"
+
+    ExamPaperSubmission ||--o{ ExamPaperQuestionAnswer : "Contains"
+    ExamPaperQuestion ||--o{ ExamPaperQuestionAnswer : "Receives"
+
+    Question }o..o{ ChoiceQuestion : "IsA"
+    Question }o..o{ FillInBlankQuestion : "IsA"
+
+    ChoiceQuestion ||--o{ Choice : "Has"
+
+    User {
+        string Id
+        string DisplayName
+        string AvatarRelativePath
+    }
+    ExamPaper {
+        Guid Id
+        string Title
+        string Description
+        TimeSpan Duration
+        bool ShuffleQuestions
+        bool AllowRetake
+        int MaxRetakeCount
+        int PassingScore
+    }
+    ExamPaperSubmission {
+        Guid Id
+        Guid ExamPaperId
+        string UserId
+        int TotalScore
+    }
+    Question {
+        Guid Id
+        string Discriminator
+    }
+    ExamPaperQuestion {
+        Guid Id
+        Guid ExamPaperId
+        Guid QuestionId
+        int Order
+        int Score
+    }
+    ExamPaperQuestionAnswer {
+        Guid Id
+        Guid ExamPaperQuestionId
+        Guid ExamPaperSubmissionId
+        bool IsCorrect
+        string AnswerContent
+        int ObtainedScore
+    }
+    ChoiceQuestion {
+        Guid Id
+        string Content
+    }
+    FillInBlankQuestion {
+        Guid Id
+        string TextWithBlanks
+        string Answer
+    }
+    Choice {
+        Guid Id
+        string Content
+        bool IsCorrect
+        Guid QuestionId
+    }
+```
+
 ## How to contribute
 
 There are many ways to contribute to the project: logging bugs, submitting pull requests, reporting issues, and creating suggestions.
